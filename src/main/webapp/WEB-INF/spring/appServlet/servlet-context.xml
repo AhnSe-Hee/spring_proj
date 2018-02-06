@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 스프링 MVC 관련 설정만을 분리하기 위한 파일 -->
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<!-- 클래스 선언에 어노테이션을 아용해 컨트롤러 작성할 수도 있다는 선언 -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- 웹에서 css, js, image 등 필요한 고정자원 위치 -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- View를 어떻게 처리하는가에 대한 설정으로 /WEB-INF/views/ 경로는 브라우저로 접근 불가하기에 컨트롤러의 호출이 필요함 -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- base-package 속성값에 해당하는 패키지 내부의 클래스들을 조사한다는 선언 : annotation-driven과 결함해 해당 패키지에 어노테이션 처리 된 컨트롤러 작성 시 반영됨 -->
+	<context:component-scan base-package="com.javalec.web" />
+	
+</beans:beans>
